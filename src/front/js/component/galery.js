@@ -91,7 +91,6 @@ const Galery = () => {
           Ver la galería
         </a>
       </div>
-      
       <Slider 
         ref={sliderRef}
         {...settings}
