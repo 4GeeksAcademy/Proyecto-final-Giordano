@@ -47,27 +47,27 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/events" style={{ color: 'white' }}>
+              <Link className="nav-link active" aria-current="page" to="/events" style={{ color: 'white' }}>
                 Descubre eventos
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="/galeria" className="nav-link" style={{ color: 'white' }}>
+              <Link to="/galeria" className="nav-link" style={{ color: 'white' }}>
                 Galería
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a onClick={() => navigate("/contact-us")} className="nav-link" style={{ color: 'white', cursor: 'pointer' }}>
+              <Link to="/contact-us" className="nav-link" style={{ color: 'white', cursor: 'pointer' }}>
                 Contáctanos
-              </a>
+              </Link>
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             {!localStorage.getItem("jwt-token") ? (
               <li className="nav-item">
-                <a href="/register" className="nav-link" style={{ color: 'white' }}>
+                <Link to="/register" className="nav-link" style={{ color: 'white' }}>
                   Registrarse / Iniciar sesión
-                </a>
+                </Link>
               </li>
             ) : (
               <>
@@ -77,9 +77,9 @@ export const Navbar = () => {
                   </span>
                 </li>
                 <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ color: 'white' }}>
+                  <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ color: 'white' }}>
                     <i className="fas fa-user"></i> {/* Ícono de perfil */}
-                  </a>
+                  </Link>
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a className="dropdown-item" href="/app/profile">Perfil</a></li>
                     <li><hr className="dropdown-divider" /></li>
