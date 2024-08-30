@@ -101,18 +101,25 @@ def update_profile():
 @jwt_required()
 def get_user_profile():
     current_user_id = get_jwt_identity()
-    
-    # Se asume que el `current_user_id` corresponde al ID en la tabla `User`.
     user = User.query.filter_by(id=current_user_id).first()
 
     if not user:
         return jsonify({"message": "User not found"}), 404
-    
-   
-    # Serializa solo el perfil del usuario
-    user_profile_data = user.user_profile.serialize()
 
-    return jsonify(user_profile_data), 200
+    if user.partner:
+        # Si es un partner, devolver el perfil de PartnerProfile
+        partner_profile = user.partner_profile
+        if partner_profile:
+            return jsonify(partner_profile.serialize()), 200
+        else:
+            return jsonify({"message": "Partner profile not found"}), 404
+    else:
+        # Si es un usuario normal, devolver el perfil de UserProfile
+        user_profile = user.user_profile
+        if user_profile:
+            return jsonify(user_profile.serialize()), 200
+        else:
+            return jsonify({"message": "User profile not found"}), 404
 
 @api.route('/change-password', methods=['PUT'])
 @jwt_required()
