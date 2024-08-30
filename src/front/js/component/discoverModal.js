@@ -9,7 +9,9 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 const Modal = ({ show, event, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const [showPayment, setShowPayment] = useState(false);
-    const ticketPrice = 50;
+
+    // Asegurarse de que el precio esté disponible y definido
+    const ticketPrice = event && event.price ? parseFloat(event.price.replace("€", "")) : 0;
     const totalPrice = quantity * ticketPrice;
 
     const handleQuantityChange = (e) => {
@@ -46,11 +48,13 @@ const Modal = ({ show, event, onClose }) => {
                         <span className="modal-discover-close-button" onClick={onClose}>
                             &times;
                         </span>
-                        <img
-                            src={event.image}
-                            alt={event.title}
-                            className="modal-discover-image"
-                        />
+                        <div className="modal-discover-header">
+                            <img
+                                src={event.image}
+                                alt={event.title}
+                                className="modal-discover-image"
+                            />
+                        </div>
                         <h2>{event.title}</h2>
                         <p>{event.description}</p>
                         <div className="modal-discover-details">
@@ -63,8 +67,8 @@ const Modal = ({ show, event, onClose }) => {
                                     onChange={handleQuantityChange}
                                 />
                             </label>
-                            <p>Precio por Entrada: ${ticketPrice}</p>
-                            <p>Precio Total: ${totalPrice}</p>
+                            <p>Precio por Entrada: €{ticketPrice}</p>
+                            <p>Precio Total: €{totalPrice}</p>
                         </div>
                         <button
                             className="modal-discover-purchase-button"
