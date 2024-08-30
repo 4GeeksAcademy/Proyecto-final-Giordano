@@ -10,6 +10,8 @@ const UserProfile = () => {
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("");
     const [eventStyle, setEventStyle] = useState("");
+    const [partnerName, setPartnerName] = useState("");
+    const [partnerDescription, setPartnerDescription] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [passwordMessage, setPasswordMessage] = useState("");
@@ -29,30 +31,45 @@ const UserProfile = () => {
 
     useEffect(() => {
         if (store.user_profile) {
-            setAddress(store.user_profile.address || "");
-            setCity(store.user_profile.city || "");
-            setCountry(store.user_profile.country || "");
-            setEventStyle(store.user_profile.event_style || "");
+            if (store.profile && store.profile.partner) {
+                // Si es partner, mostrar campos de PartnerProfile
+                setPartnerName(store.user_profile.name || "");
+                setPartnerDescription(store.user_profile.description || "");
+            } else {
+                // Si es usuario normal, mostrar campos de UserProfile
+                setAddress(store.user_profile.address || "");
+                setCity(store.user_profile.city || "");
+                setCountry(store.user_profile.country || "");
+                setEventStyle(store.user_profile.event_style || "");
+            }
         }
-    }, [store.user_profile]);
+    }, [store.user_profile, store.profile]);
 
     const handleSubmit = async () => {
-        const profile = {
-            avatar: null,
-            username: username,
-            email: email,
-            address: address,
-            city: city,
-            country: country,
-            eventStyle: eventStyle
-        };
+        let profile;
+        if (store.profile && store.profile.partner) {
+            profile = {
+                name: partnerName,
+                description: partnerDescription,
+            };
+        } else {
+            profile = {
+                avatar: null,
+                username: username,
+                email: email,
+                address: address,
+                city: city,
+                country: country,
+                eventStyle: eventStyle
+            };
+        }
+
         try {
             const success = await actions.updateUserProfile(profile);
             if (success) {
                 setProfileMessage("Información guardada con éxito");
                 setIsError(false);
-                // Asegúrate de que el store se actualice correctamente después de guardar los cambios
-                actions.getUserProfile();
+                actions.getUserProfile(); // Vuelve a cargar el perfil para reflejar los cambios
             } else {
                 setProfileMessage("Error al guardar la información");
                 setIsError(true);
@@ -62,8 +79,6 @@ const UserProfile = () => {
             setIsError(true);
         }
     };
-    
-    
 
     const handleChangePassword = async () => {
         try {
@@ -97,48 +112,71 @@ const UserProfile = () => {
                 <div className="profile-container-right text-center pt-2">
                     <div>
                         <h2>Actualiza tu información</h2>
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="Nombre"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            name="address"
-                            placeholder="Dirección"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            name="city"
-                            placeholder="Ciudad"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            name="country"
-                            placeholder="País"
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            name="eventStyle"
-                            placeholder="Estilo del Evento"
-                            value={eventStyle}
-                            onChange={(e) => setEventStyle(e.target.value)}
-                        />
+                        
+                        {store.profile && store.profile.partner ? (
+                            <>
+                                <input
+                                    type="text"
+                                    name="partnerName"
+                                    placeholder="Nombre del Socio"
+                                    value={partnerName}
+                                    onChange={(e) => setPartnerName(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    name="partnerDescription"
+                                    placeholder="Descripción del Socio"
+                                    value={partnerDescription}
+                                    onChange={(e) => setPartnerDescription(e.target.value)}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    placeholder="Nombre"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    name="address"
+                                    placeholder="Dirección"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    name="city"
+                                    placeholder="Ciudad"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    name="country"
+                                    placeholder="País"
+                                    value={country}
+                                    onChange={(e) => setCountry(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    name="eventStyle"
+                                    placeholder="Estilo del Evento"
+                                    value={eventStyle}
+                                    onChange={(e) => setEventStyle(e.target.value)}
+                                />
+                            </>
+                        )}
+
                         <button className="save-button" onClick={handleSubmit}>Guardar Cambios</button>
 
                         {profileMessage && (
