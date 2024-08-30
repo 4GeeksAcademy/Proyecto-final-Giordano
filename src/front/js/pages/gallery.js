@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Row, Col, Button, Form } from 'react-bootstrap';
-import { PencilSquare } from 'react-bootstrap-icons'; 
+import { PencilSquare } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/gallery.css';
 import ImageUpload from '../component/ImageUpload';
@@ -9,7 +9,7 @@ const Gallery = () => {
   const [modalShow, setModalShow] = useState(false);
   const [modalInfo, setModalInfo] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isEditing, setIsEditing] = useState(false); // Estado para habilitar edición
+  const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editImages, setEditImages] = useState([]);
@@ -214,20 +214,19 @@ const Gallery = () => {
     }
   ]);
 
-
   const handleShow = (item) => {
     setModalInfo(item);
     setCurrentImageIndex(0);
-    setEditTitle(item.title); // Inicializar el título para editar
-    setEditDescription(item.description); // Inicializar la descripción para editar
-    setEditImages(item.images); // Inicializar las imágenes para editar
+    setEditTitle(item.title);
+    setEditDescription(item.description);
+    setEditImages(item.images);
     setModalShow(true);
   };
 
   const handleClose = () => {
     setModalShow(false);
     setModalInfo(null);
-    setIsEditing(false); // Cerrar el modo de edición al cerrar el modal
+    setIsEditing(false);
   };
 
   const handleAddImageClick = () => {
@@ -257,19 +256,17 @@ const Gallery = () => {
   };
 
   const handleSaveEdit = () => {
-    // Actualizar los datos de la galería con los valores editados
     const updatedData = galleryData.map(item =>
       item.id === modalInfo.id
         ? { ...item, title: editTitle, description: editDescription, images: editImages }
         : item
     );
     setGalleryData(updatedData);
-    setIsEditing(false); // Desactivar modo de edición después de guardar
+    setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    // Restaurar los valores originales
     setEditTitle(modalInfo.title);
     setEditDescription(modalInfo.description);
     setEditImages(modalInfo.images);
@@ -284,7 +281,19 @@ const Gallery = () => {
 
   return (
     <div className="discover-container">
-      <h1 className="title">Galeria de imagenes</h1>
+      
+      <div className="gallery-header">
+        <h1 className="title">Galeria de imágenes</h1>
+        <div>
+        <Button 
+          variant="primary" 
+          className="add-post-button" 
+          onClick={handleAddImageClick}
+        >
+          +
+        </Button>
+      </div>
+      </div>
       <div className="gallery">
         <div className="gallery-grid">
           {galleryData.map((event) => (
@@ -299,12 +308,6 @@ const Gallery = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="add-post-wrapper">
-          <div className="add-post-button" onClick={handleAddImageClick}>
-            <span className="add-post-tooltip">Añadir Imágenes</span>
-            +
-          </div>
         </div>
       </div>
       <Modal
