@@ -6,6 +6,9 @@ const AddEventModal = ({ show, onClose, addEvent }) => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
+  const [date, setDate] = useState("");  // Estado para la fecha
+  const [time, setTime] = useState("");  // Estado para la hora
+  const [price, setPrice] = useState("");  // Estado para el precio
   const [imagePreview, setImagePreview] = useState(""); // Estado para el preview de la imagen
   const fileInputRef = useRef(null); // Referencia al input de archivo
 
@@ -23,12 +26,15 @@ const AddEventModal = ({ show, onClose, addEvent }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && description && image && category) {
+    if (title && description && image && category && date && time && price) {
       const newEvent = {
         id: Math.random().toString(36).substr(2, 9),
         title,
         description,
         category,
+        date,
+        time,
+        price: `€${price}`, // Formato de precio
         image: imagePreview,
       };
       addEvent(newEvent);
@@ -86,6 +92,44 @@ const AddEventModal = ({ show, onClose, addEvent }) => {
                   <option value="Rock">Rock</option>
                 </select>
               </label>
+            </div>
+            <div className="add-event-modal-row">
+              <div className="add-event-modal-details-item">
+                <label>
+                  Fecha del Evento:
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <div className="add-event-modal-details-item">
+                <label>
+                  Precio por Entrada:
+                  <input
+                    type="number"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    required
+                    min="0"
+                    step="0.01"
+                    placeholder="€"
+                  />
+                </label>
+              </div>
+              <div className="add-event-modal-details-item">
+                <label>
+                  Hora del Evento:
+                  <input
+                    type="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
             </div>
             <div className="add-event-modal-details-item add-event-modal-image-input">
               <input

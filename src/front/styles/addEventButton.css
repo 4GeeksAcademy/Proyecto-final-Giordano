@@ -1,0 +1,20 @@
+.add-event-button {
+    width: 80px; 
+    height: 50px; 
+    border-radius: 50%;
+    background-color: #3498DB;
+    color: white;
+    font-size: 24px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; 
+  }
+  
+  .add-event-button:hover {
+    background-color: #2980B9;
+  }
+  

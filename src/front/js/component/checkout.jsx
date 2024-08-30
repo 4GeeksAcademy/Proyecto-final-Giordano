@@ -44,7 +44,7 @@ export const Payment = ({ amount, onSuccess }) => {
             setMessage('Hubo un error en el pago. Inténtalo de nuevo.');
         } else if (paymentIntent.status === 'succeeded') {
             console.log('Payment succeeded!');
-            setMessage(`¡Pago completado con éxito de $${amount}!`);
+            setMessage(`¡Pago completado con éxito de €${amount}!`);
             if (onSuccess) {
                 onSuccess(); // Trigger the onSuccess callback
             }
@@ -59,7 +59,7 @@ export const Payment = ({ amount, onSuccess }) => {
             <form onSubmit={handleSubmit}>
                 <CardElement className="card-element" />
                 <button type="submit" disabled={!stripe || loading} className="pay-button">
-                    {loading ? "Processing..." : `Pagar $${amount}`}
+                    {loading ? "Processing..." : `Pagar €${amount}`}
                 </button>
             </form>
             {message && <p className="payment-message">{message}</p>}

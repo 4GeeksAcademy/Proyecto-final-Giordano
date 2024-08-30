@@ -182,3 +182,36 @@
 .remove-image-button:hover {
   background-color: #c0392b;
 }
+
+/* Container for date and time inputs side by side */
+.add-event-modal-date-time {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Espacio entre los campos de fecha y hora */
+}
+
+/* Adjusting the width of each input field */
+.add-event-modal-date-time .add-event-modal-details-item {
+  flex: 1;
+}
+
+.add-event-modal-date-time input {
+  width: 100%;
+}
+
+.add-event-modal-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; /* Espacio entre los elementos */
+}
+
+.add-event-modal-details-item {
+  flex: 1; /* Hace que cada item ocupe el mismo espacio */
+}
+
+.add-event-modal-details-item label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
