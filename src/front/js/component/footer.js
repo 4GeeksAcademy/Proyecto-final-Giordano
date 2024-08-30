@@ -1,15 +1,16 @@
 import React from "react";
 import "../../styles/footer.css";
 import logo from "../component/tickeateBlanco.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
 	return (
 		<footer className="footer" style={{ backgroundColor: 'rgba(29, 14, 63, 0.9)', padding: '1rem 0' }}>
 			<div className="container-fluid">
 				<div className="footer-content d-flex justify-content-between align-items-center">
-					<a
+					<Link
 						className="navbar-brand"
-						href="/"
+						to="/"
 						style={{
 							backgroundImage: `url(${logo})`,
 							backgroundSize: 'contain',
@@ -21,23 +22,23 @@ const Footer = () => {
 						}}
 					>
 						Tickeate
-					</a>
+					</Link>
 					<nav className="footer-nav">
 						<ul className="navbar-nav d-flex flex-row">
 							<li className="nav-item">
-								<a className="nav-link" href="/events" style={{ color: 'white', padding: '0 15px' }}>
+								<Link className="nav-link" to="/events" style={{ color: 'white', padding: '0 15px' }}>
 									Descubre eventos
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/galeria" style={{ color: 'white', padding: '0 15px' }}>
+								<Link className="nav-link" to="/galeria" style={{ color: 'white', padding: '0 15px' }}>
 									Galería
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/contact-us" style={{ color: 'white', padding: '0 15px' }}>
+								<Link className="nav-link" to="/contact-us" style={{ color: 'white', padding: '0 15px' }}>
 									Contáctanos
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</nav>
