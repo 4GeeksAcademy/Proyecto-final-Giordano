@@ -77,17 +77,18 @@
 }
 
 /* Botón para añadir publicación */
-/* Contenedor para el título y el botón */
+
 .gallery-header {
-  display: flex; /* Alinea el título y el botón en una fila */
-  justify-content: space-between; /* Espacio entre el título y el botón */
-  align-items: center; /* Alinea verticalmente el título y el botón en el centro */
-  margin-bottom: 16px; /* Espacio entre el título+botón y la galería */
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 16px; 
+  gap: 10px;
 }
 
 /* Estilos para el título */
 .gallery-header h1 {
-  margin: 0; /* Elimina el margen por defecto del título */
+  margin: 0; 
 }
 
 /* Estilos para el botón */
@@ -95,21 +96,21 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #000000;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;
   border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(56, 37, 53, 0.2);
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
   
 }
 
 .add-post-button:hover {
-  background-color: #0056b3;
+  background-color: #674077;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -120,7 +121,7 @@
 
 /* Modal personalizado */
 
-/* Asegúrate de que este estilo solo afecte al modal */
+
 .gallery-modal .modal-dialog {
   max-width: 90%;
   margin: 30px auto;
